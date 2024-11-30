@@ -186,7 +186,7 @@ public class AManufacturingGUI extends JFrame {
                 JOptionPane.showMessageDialog(
                         this,
                         e.getMessage(),
-                        "Error al importar", /
+                        "Error al importar", 
                         JOptionPane.ERROR_MESSAGE
                 );
             }

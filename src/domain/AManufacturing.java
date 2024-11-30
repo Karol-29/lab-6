@@ -91,7 +91,7 @@ public class AManufacturing implements Serializable{
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
             oos.writeObject(this);  // Guardamos el objeto completo
         } catch (IOException e) {
-            throw new ReplicateException("Error al guardar el archivo: " + e.getMessage());
+            throw new ReplicateException(ReplicateException.ERROR + " guardar: " + e.getMessage());
         }
     }
 
@@ -99,20 +99,22 @@ public class AManufacturing implements Serializable{
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             return (AManufacturing) ois.readObject();  // Deserializamos el objeto
         } catch (IOException | ClassNotFoundException e) {
-            throw new ReplicateException("Error al abrir el archivo: " + e.getMessage());
+            throw new ReplicateException(ReplicateException.ERROR + " abrir: " + e.getMessage());
         }
     }
 
+    public static AManufacturing open00(File file) throws ReplicateException {
+        throw new ReplicateException("Open " + ReplicateException.EN_CONSTRUCION + " " + file.getName());
+    }
 
-    public static AManufacturing open00(File file) throws ReplicateException{
-        throw new ReplicateException("Open "+ReplicateException.EN_CONSTRUCION+" "+file.getName());
+    public void save00(File file) throws ReplicateException {
+        throw new ReplicateException("Save " + ReplicateException.EN_CONSTRUCION + " " + file.getName());
     }
-    public void save00(File file) throws ReplicateException{
-        throw new ReplicateException("Save "+ReplicateException.EN_CONSTRUCION+" "+file.getName());
+
+    public void export00(File file) throws ReplicateException {
+        throw new ReplicateException("Export " + ReplicateException.EN_CONSTRUCION + " " + file.getName());
     }
-    public void export00(File file) throws ReplicateException{
-        throw new ReplicateException("Export "+ReplicateException.EN_CONSTRUCION+" "+file.getName());
-    }
+
     public void export(File file) throws ReplicateException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             // Itera sobre todas las celdas y guarda el estado de cada cosa
@@ -127,13 +129,14 @@ public class AManufacturing implements Serializable{
                 }
             }
         } catch (IOException e) {
-            throw new ReplicateException("Error al exportar el archivo: " + e.getMessage());
+            throw new ReplicateException(ReplicateException.ERROR + " exportar: " + e.getMessage());
         }
     }
 
-    public static AManufacturing importe00(File file) throws ReplicateException{
-        throw new ReplicateException("Import "+ReplicateException.EN_CONSTRUCION+" "+file.getName());
+    public static AManufacturing importe00(File file) throws ReplicateException {
+        throw new ReplicateException("Import " + ReplicateException.EN_CONSTRUCION + " " + file.getName());
     }
+
     public void importe(File file) throws ReplicateException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -155,9 +158,10 @@ public class AManufacturing implements Serializable{
                 }
             }
         } catch (IOException e) {
-            throw new ReplicateException("Error al importar el archivo: " + e.getMessage());
+            throw new ReplicateException(ReplicateException.ERROR + " importar: " + e.getMessage());
         }
     }
+
 
     private Thing createThingByType(String type) {
         switch (type) {
